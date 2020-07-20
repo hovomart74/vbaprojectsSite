@@ -1,0 +1,944 @@
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim PutPapkiFotoZubr As String
+    'переменная сохраняющая количество фото от Зубр
+    Dim KolichFotoZubr As Long
+    'массив сохраняет названия фоток от Зубр с путями
+    Dim NazvFotoZubr() As String
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "puti.txt"
+        ProverPutiFotoZubr()
+
+    End Sub
+
+    Private Sub ProverPutiFotoZubr() 'микропрограмма проверки наличия файла "puti.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("puti.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            PutPapkiFotoZubr = My.Computer.FileSystem.ReadAllText("puti.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+        Else
+            'при её отсутствии создаём файл "puti.txt"
+            My.Computer.FileSystem.WriteAllText("puti.txt", "Тут будет путь к фоткам от Зубра", True)
+            MaskedTextBox1.Text = My.Computer.FileSystem.ReadAllText("puti.txt")
+            PutPapkiFotoZubr = ""
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'запускаем вытаскивание и назначение стартового пути
+        PapkaFotoZubr()
+    End Sub
+
+    Private Sub PapkaFotoZubr()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = PutPapkiFotoZubr
+
+        'Фиксируем путь к папке с фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            PutPapkiFotoZubr = FolderBrowserDialog1.SelectedPath
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+            'очищяем содержимое файла "puti.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("puti.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("puti.txt", PutPapkiFotoZubr, True)
+        End If
+
+    End Sub
+
+    Private Sub ZubrMasiv()
+        'считаем количество файлов в папке
+        KolichFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr).Count
+        ReDim NazvFotoZubr(KolichFotoZubr - 1)
+        NazvFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr)
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        ProgressBar1.Value = 0
+        For I As Integer = 1 To 50
+            Application.DoEvents()
+            ProgressBar1.Value = ProgressBar1.Value + 2
+            System.Threading.Thread.Sleep(2)
+
+            'MsgBox("Текст", MsgBoxStyle.Information, "Текст")
+        Next
+        'проверяем наличие папки с выбраным именем
+        If My.Computer.FileSystem.DirectoryExists(MaskedTextBox1.Text) = True Then
+            ZubrMasiv()
+            'MsgBox("Заполните пожалуйста все поля")
+        Else
+            'ZubrMasiv()
+            MsgBox("Заполните пожалуйста все поля правильно")
+        End If
+
+    End Sub
+
+
+End Class
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+11*23
+
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim PutPapkiFotoZubr As String
+    'переменная сохраняющая количество фото от Зубр
+    Dim KolichFotoZubr As Long
+    'массив сохраняет названия фоток от Зубр с путями
+    Dim ImenaFotoZubr() As String
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "PutPapkiFotoZubr.txt"
+        ProverPutPapkiFotoZubr()
+
+    End Sub
+
+    Private Sub ProverPutPapkiFotoZubr() 'микропрограмма проверки наличия файла "PutPapkiFotoZubr.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("PutPapkiFotoZubr.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            PutPapkiFotoZubr = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+        Else
+            'при её отсутствии создаём файл "PutPapkiFotoZubr.txt"
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", "Тут будет путь к фоткам от Зубра", True)
+            MaskedTextBox1.Text = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            PutPapkiFotoZubr = ""
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'запускаем вытаскивание и назначение стартового пути
+        PapkaFotoZubr()
+    End Sub
+
+    Private Sub PapkaFotoZubr()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = PutPapkiFotoZubr
+
+        'Фиксируем путь к папке с фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            PutPapkiFotoZubr = FolderBrowserDialog1.SelectedPath
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+            'очищяем содержимое файла "PutPapkiFotoZubr.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("PutPapkiFotoZubr.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", PutPapkiFotoZubr, True)
+        End If
+
+    End Sub
+
+    Private Sub ZubrMasiv()
+        'считаем количество файлов в папке
+        KolichFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr).Count
+        ReDim ImenaFotoZubr(KolichFotoZubr - 1)
+        ImenaFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr)
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        ProgressBar1.Value = 0
+        For I As Integer = 1 To 50
+            Application.DoEvents()
+            ProgressBar1.Value = ProgressBar1.Value + 2
+            System.Threading.Thread.Sleep(2)
+
+            'MsgBox("Готово", 0, "Готово")
+        Next
+        'проверяем наличие папки с выбраным именем
+        If My.Computer.FileSystem.DirectoryExists(MaskedTextBox1.Text) = True Then
+            ZubrMasiv()
+            'MsgBox("Заполните пожалуйста все поля")
+        Else
+            'ZubrMasiv()
+            MsgBox("Заполните пожалуйста все поля правильно")
+        End If
+
+    End Sub
+
+
+End Class
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+11*44
+
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim PutPapkiFotoZubr As String
+    'переменная сохраняющая количество фото от Зубр
+    Dim KolichFotoZubr As Long
+    'массив сохраняет названия фоток от Зубр с путями
+    Dim ImenaFotoZubr() As String
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "PutPapkiFotoZubr.txt"
+        ProverPutPapkiFotoZubr()
+
+    End Sub
+
+    Private Sub ProverPutPapkiFotoZubr() 'микропрограмма проверки наличия файла "PutPapkiFotoZubr.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("PutPapkiFotoZubr.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            PutPapkiFotoZubr = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+        Else
+            'при её отсутствии создаём файл "PutPapkiFotoZubr.txt"
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", "Тут будет путь к фоткам от Зубра", True)
+            MaskedTextBox1.Text = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            PutPapkiFotoZubr = ""
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'запускаем вытаскивание и назначение стартового пути
+        PapkaFotoZubr()
+    End Sub
+
+    Private Sub PapkaFotoZubr()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = PutPapkiFotoZubr
+
+        'Фиксируем путь к папке с фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            PutPapkiFotoZubr = FolderBrowserDialog1.SelectedPath
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+            'очищяем содержимое файла "PutPapkiFotoZubr.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("PutPapkiFotoZubr.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", PutPapkiFotoZubr, True)
+        End If
+
+    End Sub
+
+    Private Sub ZubrMasiv()
+        'считаем количество файлов в папке
+        KolichFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr).Count
+        ReDim ImenaFotoZubr(KolichFotoZubr - 1)
+        ImenaFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr)
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        ProgressBar1.Value = 0
+        For I As Integer = 1 To 50
+            Application.DoEvents()
+            ProgressBar1.Value = ProgressBar1.Value + 2
+            System.Threading.Thread.Sleep(2)
+        Next
+
+        'проверяем наличие папки с выбраным именем
+        If My.Computer.FileSystem.DirectoryExists(MaskedTextBox1.Text) = True Then
+            ZubrMasiv()
+            MsgBox("Готово", 0, "Готово")
+        Else
+            MsgBox("Заполните пожалуйста все поля правильно")
+        End If
+
+    End Sub
+
+
+End Class
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+11*53
+
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim PutPapkiFotoZubr As String
+    'переменная сохраняющая количество фото от Зубр
+    Dim KolichFotoZubr As Long
+    'массив сохраняет названия фоток от Зубр с путями
+    Dim ImenaFotoZubr() As String
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "PutPapkiFotoZubr.txt"
+        ProverPutPapkiFotoZubr()
+
+    End Sub
+
+    Private Sub ProverPutPapkiFotoZubr() 'микропрограмма проверки наличия файла "PutPapkiFotoZubr.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("PutPapkiFotoZubr.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            PutPapkiFotoZubr = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+        Else
+            'при её отсутствии создаём файл "PutPapkiFotoZubr.txt"
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", "Тут будет путь к фоткам от Зубра", True)
+            MaskedTextBox1.Text = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            PutPapkiFotoZubr = ""
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'запускаем вытаскивание и назначение стартового пути
+        PapkaFotoZubr()
+    End Sub
+
+    Private Sub PapkaFotoZubr()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = PutPapkiFotoZubr
+        'Фиксируем путь к папке с фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            PutPapkiFotoZubr = FolderBrowserDialog1.SelectedPath
+            'заодно вписываем в TextBox
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+            'очищяем содержимое файла "PutPapkiFotoZubr.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("PutPapkiFotoZubr.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", PutPapkiFotoZubr, True)
+        End If
+    End Sub
+
+    Private Sub ZubrMasiv()
+        'считаем количество файлов в папке
+        KolichFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr).Count
+        'назначаем количество элементов массива ImenaFotoZubr
+        ReDim ImenaFotoZubr(KolichFotoZubr - 1)
+        'заливаем массив именами файлов с путями
+        ImenaFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr)
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        ProgressBar1.Value = 0
+        For I As Integer = 1 To 50
+            Application.DoEvents()
+            ProgressBar1.Value = ProgressBar1.Value + 2
+            System.Threading.Thread.Sleep(2)
+        Next
+
+        'проверяем наличие папки с выбраным именем
+        If My.Computer.FileSystem.DirectoryExists(MaskedTextBox1.Text) = True Then
+            ZubrMasiv()
+            MsgBox("Готово", 0, "Готово")
+        Else
+            MsgBox("Заполните пожалуйста все поля правильно")
+        End If
+
+    End Sub
+
+
+End Class
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12,20
+
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim PutPapkiFotoZubr As String
+    'переменная сохраняющая количество фото от Зубр
+    Dim KolichFotoZubr As Long
+    'массив сохраняет названия фоток от Зубр с путями
+    Dim ImenaFotoZubr() As String
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "PutPapkiFotoZubr.txt"
+        ProverPutPapkiFotoZubr()
+
+    End Sub
+
+    Private Sub ProverPutPapkiFotoZubr() 'микропрограмма проверки наличия файла "PutPapkiFotoZubr.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("PutPapkiFotoZubr.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            PutPapkiFotoZubr = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+        Else
+            'при её отсутствии создаём файл "PutPapkiFotoZubr.txt"
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", "Тут будет путь к фоткам от Зубра", True)
+            MaskedTextBox1.Text = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            PutPapkiFotoZubr = ""
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'запускаем вытаскивание и назначение стартового пути
+        PapkaFotoZubr()
+    End Sub
+
+    Private Sub PapkaFotoZubr()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = PutPapkiFotoZubr
+        'Фиксируем путь к папке с фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            PutPapkiFotoZubr = FolderBrowserDialog1.SelectedPath
+            'заодно вписываем в TextBox
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+            'очищяем содержимое файла "PutPapkiFotoZubr.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("PutPapkiFotoZubr.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", PutPapkiFotoZubr, True)
+        End If
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        'запускаем ProgressBar
+        ProgressBar1.Value = 0
+        For I As Integer = 1 To 5
+            Application.DoEvents()
+            ProgressBar1.Value = ProgressBar1.Value + 20
+            System.Threading.Thread.Sleep(2)
+        Next
+
+        'проверяем наличие папки с выбраным именем
+        If My.Computer.FileSystem.DirectoryExists(MaskedTextBox1.Text) = True Then
+            'при её наличии запускаем заполнение массива ImenaFotoZubr
+            ZubrMasiv()
+            'по окончании всех работ открывается сообщение
+            MsgBox("Готово!", 0, "Готово!")
+        Else
+            'при отсутствии нужных папок выводим сообщение
+            MsgBox("Заполните пожалуйста все поля правильно")
+        End If
+
+    End Sub
+
+    Private Sub ZubrMasiv()
+        'считаем количество файлов в папке
+        KolichFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr).Count
+        'назначаем количество элементов массива ImenaFotoZubr
+        ReDim ImenaFotoZubr(KolichFotoZubr - 1)
+        'заливаем массив именами файлов с путями
+        ImenaFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr)
+    End Sub
+
+End Class
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+16*45
+
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim PutPapkiFotoZubr As String
+    'переменная сохраняющая количество фото от Зубр
+    Dim KolichFotoZubr As Long
+    'массив сохраняет названия фоток от Зубр с путями
+    Dim ImenaFotoZubr() As String
+    'ссылка на прайс
+    Dim Prais As String
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "PutPapkiFotoZubr.txt"
+        ProverPutPapkiFotoZubr()
+
+    End Sub
+
+    Private Sub ProverPutPapkiFotoZubr() 'микропрограмма проверки наличия файла "PutPapkiFotoZubr.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("PutPapkiFotoZubr.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            PutPapkiFotoZubr = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+        Else
+            'при её отсутствии создаём файл "PutPapkiFotoZubr.txt"
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", "Тут будет путь к фоткам от Зубра", True)
+            MaskedTextBox1.Text = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            PutPapkiFotoZubr = ""
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'запускаем вытаскивание и назначение стартового пути
+        PapkaFotoZubr()
+    End Sub
+
+    Private Sub PapkaFotoZubr()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = PutPapkiFotoZubr
+        'Фиксируем путь к папке с фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            PutPapkiFotoZubr = FolderBrowserDialog1.SelectedPath
+            'заодно вписываем в TextBox
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+            'очищяем содержимое файла "PutPapkiFotoZubr.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("PutPapkiFotoZubr.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", PutPapkiFotoZubr, True)
+        End If
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        'запускаем ProgressBar
+        ProgressBar1.Value = 0
+        For I As Integer = 1 To 5
+            Application.DoEvents()
+            ProgressBar1.Value = ProgressBar1.Value + 20
+            System.Threading.Thread.Sleep(2)
+        Next
+
+        'проверяем наличие папки с выбраным именем
+        If My.Computer.FileSystem.DirectoryExists(MaskedTextBox1.Text) = True Then
+            'при её наличии запускаем заполнение массива ImenaFotoZubr
+            ZubrMasiv()
+            'по окончании всех работ открывается сообщение
+            MsgBox("Готово!", 0, "Готово!")
+        Else
+            'при отсутствии нужных папок выводим сообщение
+            MsgBox("Заполните пожалуйста все поля правильно")
+        End If
+
+    End Sub
+
+    Private Sub ZubrMasiv()
+        'считаем количество файлов в папке
+        KolichFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr).Count
+        'назначаем количество элементов массива ImenaFotoZubr
+        ReDim ImenaFotoZubr(KolichFotoZubr - 1)
+        'заливаем массив именами файлов с путями
+        ImenaFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr)
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        OpenFileDialog1.ShowDialog()
+        Prais = OpenFileDialog1.FileName
+    End Sub
+End Class
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+18*20
+
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim PutPapkiFotoZubr As String
+    'переменная сохраняющая количество фото от Зубр
+    Dim KolichFotoZubr As Long
+    'массив сохраняет названия фоток от Зубр с путями
+    Dim ImenaFotoZubr() As String
+    'ссылка на прайс
+    Dim PutPrais As String
+    'массив с прайсом
+    Dim MasPrais(1, 1) As String
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "PutPapkiFotoZubr.txt"
+        ProverPutPapkiFotoZubr()
+
+    End Sub
+
+    Private Sub ProverPutPapkiFotoZubr() 'микропрограмма проверки наличия файла "PutPapkiFotoZubr.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("PutPapkiFotoZubr.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            PutPapkiFotoZubr = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+        Else
+            'при её отсутствии создаём файл "PutPapkiFotoZubr.txt"
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", "Тут будет путь к фоткам от Зубра", True)
+            MaskedTextBox1.Text = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            PutPapkiFotoZubr = ""
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'запускаем вытаскивание и назначение стартового пути
+        PapkaFotoZubr()
+    End Sub
+
+    Private Sub PapkaFotoZubr()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = PutPapkiFotoZubr
+        'Фиксируем путь к папке с фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            PutPapkiFotoZubr = FolderBrowserDialog1.SelectedPath
+            'заодно вписываем в TextBox
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+            'очищяем содержимое файла "PutPapkiFotoZubr.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("PutPapkiFotoZubr.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", PutPapkiFotoZubr, True)
+        End If
+    End Sub
+
+    Private Sub Pusk_Click(sender As Object, e As EventArgs) Handles Pusk.Click
+        'запускаем ProgressBar
+        ProgressBar1.Value = 0
+        For I As Integer = 1 To 100
+            Application.DoEvents()
+            ProgressBar1.Value = ProgressBar1.Value + 1
+            System.Threading.Thread.Sleep(2)
+        Next
+
+        'проверяем наличие папки с выбраным именем
+        If My.Computer.FileSystem.DirectoryExists(MaskedTextBox1.Text) = True Then
+            'при её наличии запускаем заполнение массива ImenaFotoZubr
+            ZubrMasiv()
+            ZapolnMasPrais()
+            'по окончании всех работ открывается сообщение
+            MsgBox("Готово!", 0, "Готово!")
+        Else
+            'при отсутствии нужных папок выводим сообщение
+            MsgBox("Заполните пожалуйста все поля правильно")
+        End If
+
+    End Sub
+
+    Private Sub ZubrMasiv()
+        'считаем количество файлов в папке
+        KolichFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr).Count
+        'назначаем количество элементов массива ImenaFotoZubr
+        ReDim ImenaFotoZubr(KolichFotoZubr - 1)
+        'заливаем массив именами файлов с путями
+        ImenaFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr)
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        'запускаем диалоговое окно выбора файла
+        OpenFileDialog1.ShowDialog()
+        'сохраняем путь к прайсу в переменной
+        PutPrais = OpenFileDialog1.FileName
+        'сохраняем путь к прайсу в TextBox
+        MaskedTextBox2.Text = PutPrais
+
+    End Sub
+
+    Private Sub ZapolnMasPrais()
+        'списано из учебника
+        ' Declare counter variables.
+        Dim row, col, finalRow, finalCol As Long
+
+        ' Open the spreadsheet.
+        Dim xl = CreateObject("Excel.application")
+        xl.Workbooks.Open(PutPrais)
+        xl.Worksheets("Price").activate()
+
+        ' Count the number of used rows and columns.
+        finalRow = xl.ActiveSheet.UsedRange.Rows.Count
+        finalCol = xl.ActiveSheet.UsedRange.Columns.Count
+
+        ' Create a 2-dimensional array of the same size.
+        ReDim MasPrais(finalRow, finalCol)
+
+        ' Assign and display all cell values.
+        For row = 1 To finalRow
+            For col = 1 To finalCol
+                MasPrais(row, col) = (xl.ActiveSheet.Cells(row, col).Value)
+            Next col
+        Next row
+
+        ' Release resources.
+        xl.Workbooks.Close()
+        xl = Nothing
+
+    End Sub
+
+End Class
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+19*28
+
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim PutPapkiFotoZubr As String
+    'переменная сохраняющая количество фото от Зубр
+    Dim KolichFotoZubr As Long
+    'массив сохраняет названия фоток от Зубр с путями
+    Dim ImenaFotoZubr() As String
+    'ссылка на прайс
+    Dim PutPrais As String
+    'массив с прайсом
+    Dim MasPrais(1, 1) As String
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "PutPapkiFotoZubr.txt"
+        ProverPutPapkiFotoZubr()
+
+    End Sub
+
+    Private Sub ProverPutPapkiFotoZubr() 'микропрограмма проверки наличия файла "PutPapkiFotoZubr.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("PutPapkiFotoZubr.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            PutPapkiFotoZubr = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+        Else
+            'при её отсутствии создаём файл "PutPapkiFotoZubr.txt"
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", "Тут будет путь к фоткам от Зубра", True)
+            MaskedTextBox1.Text = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            PutPapkiFotoZubr = ""
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'запускаем вытаскивание и назначение стартового пути
+        PapkaFotoZubr()
+    End Sub
+
+    Private Sub PapkaFotoZubr()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = PutPapkiFotoZubr
+        'Фиксируем путь к папке с фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            PutPapkiFotoZubr = FolderBrowserDialog1.SelectedPath
+            'заодно вписываем в TextBox
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+            'очищяем содержимое файла "PutPapkiFotoZubr.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("PutPapkiFotoZubr.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", PutPapkiFotoZubr, True)
+        End If
+    End Sub
+
+    Private Sub Pusk_Click(sender As Object, e As EventArgs) Handles Pusk.Click
+        'запускаем ProgressBar
+        ProgressBar1.Value = 0
+        For I As Integer = 1 To 100
+            Application.DoEvents()
+            ProgressBar1.Value = ProgressBar1.Value + 1
+            System.Threading.Thread.Sleep(2)
+        Next
+
+        'проверяем наличие выбранных файлов и папок
+        If My.Computer.FileSystem.DirectoryExists(MaskedTextBox1.Text) = True And
+            My.Computer.FileSystem.FileExists(MaskedTextBox2.Text) = True Then
+            'при их наличии запускаем заполнение массива ImenaFotoZubr
+            ZubrMasiv()
+            'заполнение массива с прайсом от зубра
+            ZapolnMasPrais()
+            'по окончании всех работ открывается сообщение
+            My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Exclamation)
+            MsgBox("Готово!", 0, "Готово!")
+        Else
+            'при отсутствии нужных папок выводим сообщение
+            MsgBox("Заполните пожалуйста все поля правильно")
+        End If
+
+    End Sub
+
+    Private Sub ZubrMasiv()
+        'считаем количество файлов в папке
+        KolichFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr).Count
+        'назначаем количество элементов массива ImenaFotoZubr
+        ReDim ImenaFotoZubr(KolichFotoZubr - 1)
+        'заливаем массив именами файлов с путями
+        ImenaFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr)
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        'запускаем диалоговое окно выбора файла
+        OpenFileDialog1.ShowDialog()
+        'сохраняем путь к прайсу в переменной
+        PutPrais = OpenFileDialog1.FileName
+        'сохраняем путь к прайсу в TextBox
+        MaskedTextBox2.Text = PutPrais
+
+    End Sub
+
+    Private Sub ZapolnMasPrais()
+        'списано из учебника
+        ' Declare counter variables.
+        Dim row, col, finalRow, finalCol As Long
+
+        ' Open the spreadsheet.
+        Dim xl = CreateObject("Excel.application")
+        xl.Workbooks.Open(PutPrais)
+        xl.Worksheets("Price").activate()
+
+        ' Count the number of used rows and columns.
+        finalRow = xl.ActiveSheet.UsedRange.Rows.Count
+        finalCol = xl.ActiveSheet.UsedRange.Columns.Count
+
+        ' Create a 2-dimensional array of the same size.
+        ReDim MasPrais(finalRow, finalCol)
+
+        ' Assign and display all cell values.
+        For row = 1 To finalRow
+            For col = 1 To finalCol
+                MasPrais(row, col) = (xl.ActiveSheet.Cells(row, col).Value)
+            Next col
+        Next row
+
+        ' Release resources.
+        xl.Workbooks.Close()
+        xl = Nothing
+
+    End Sub
+
+End Class
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+20*49
+
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim PutPapkiFotoZubr As String
+    'переменная сохраняющая количество фото от Зубр
+    Dim KolichFotoZubr As Long
+    'массив сохраняет названия фоток от Зубр с путями
+    Dim ImenaFotoZubr() As String
+    'ссылка на прайс
+    Dim PutPrais As String
+    'массив с прайсом
+    Dim MasPraisZubr(1, 1) As String
+    'переменная сохраняет количество строк в прайсе +1
+    Dim Strochek As Long = 1
+    'переменная сохраняет количество столбцов в прайсе
+    Dim Stolbcov As Long = 25
+    'массив с обработаным прайсом
+    Dim MasNovPrais(Strochek, Stolbcov) As String
+
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "PutPapkiFotoZubr.txt"
+        ProverPutPapkiFotoZubr()
+    End Sub
+
+    Private Sub ProverPutPapkiFotoZubr() 'микропрограмма проверки наличия файла "PutPapkiFotoZubr.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("PutPapkiFotoZubr.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            PutPapkiFotoZubr = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+        Else
+            'при её отсутствии создаём файл "PutPapkiFotoZubr.txt"
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", "Тут будет путь к фоткам от Зубра", True)
+            MaskedTextBox1.Text = My.Computer.FileSystem.ReadAllText("PutPapkiFotoZubr.txt")
+            PutPapkiFotoZubr = ""
+        End If
+    End Sub
+
+
+
+    Private Sub PapkaFoto_Click(sender As Object, e As EventArgs) Handles PapkaFoto.Click
+        'запускаем вытаскивание и назначение стартового пути к фоткам
+        PapkaFotoZubr()
+    End Sub
+
+    'запускаем вытаскивание и назначение стартового пути к фоткам
+    Private Sub PapkaFotoZubr()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = PutPapkiFotoZubr
+        'Фиксируем путь к папке с фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            PutPapkiFotoZubr = FolderBrowserDialog1.SelectedPath
+            'заодно вписываем в TextBox
+            MaskedTextBox1.Text = PutPapkiFotoZubr
+            'очищяем содержимое файла "PutPapkiFotoZubr.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("PutPapkiFotoZubr.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("PutPapkiFotoZubr.txt", PutPapkiFotoZubr, True)
+        End If
+    End Sub
+
+    Private Sub Pusk_Click(sender As Object, e As EventArgs) Handles Pusk.Click
+        'запускаем ProgressBar
+        ProgressBar1.Value = 0
+        For I As Integer = 1 To 100
+            Application.DoEvents()
+            ProgressBar1.Value = ProgressBar1.Value + 1
+            System.Threading.Thread.Sleep(2)
+        Next
+
+        'проверяем наличие выбранных файлов и папок
+        If My.Computer.FileSystem.DirectoryExists(MaskedTextBox1.Text) = True And
+            My.Computer.FileSystem.FileExists(MaskedTextBox2.Text) = True Then
+            'при их наличии запускаем заполнение массива ImenaFotoZubr
+            ZapolnFotoZubrMasiv()
+            'заполнение массива с прайсом от зубра
+            ZapolnMasPraisZubr()
+            'заполнение массива новый прайс
+            KodTovaraModel()
+            'по окончании всех работ открывается сообщение
+            My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Exclamation)
+            MsgBox("Готово!", 0, "Готово!")
+        Else
+            'при отсутствии нужных папок выводим сообщение
+            MsgBox("Заполните пожалуйста все поля правильно")
+        End If
+
+    End Sub
+
+    Private Sub ZapolnFotoZubrMasiv()
+        'считаем количество файлов в папке
+        KolichFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr).Count
+        'назначаем количество элементов массива ImenaFotoZubr
+        ReDim ImenaFotoZubr(KolichFotoZubr - 1)
+        'заливаем массив именами файлов с путями
+        ImenaFotoZubr = IO.Directory.GetFiles(PutPapkiFotoZubr)
+    End Sub
+
+    Private Sub ViborPraisZubr_Click(sender As Object, e As EventArgs) Handles ViborPraisZubr.Click
+        'запускаем диалоговое окно выбора файла
+        OpenFileDialog1.ShowDialog()
+        'сохраняем путь к прайсу в переменной
+        PutPrais = OpenFileDialog1.FileName
+        'сохраняем путь к прайсу в TextBox
+        MaskedTextBox2.Text = PutPrais
+    End Sub
+
+    'заполнение массива с прайсом от зубра
+    Private Sub ZapolnMasPraisZubr()
+        'списано из учебника
+        ' Declare counter variables.
+        Dim row, col, finalRow, finalCol As Long
+        ' Open the spreadsheet.
+        Dim xl = CreateObject("Excel.application")
+        xl.Workbooks.Open(PutPrais)
+        'активация нужного листа в книге Эксель
+        xl.Worksheets("Price").activate()
+        ' Count the number of used rows and columns.
+        finalRow = xl.ActiveSheet.UsedRange.Rows.Count
+        finalCol = xl.ActiveSheet.UsedRange.Columns.Count
+        ' Create a 2-dimensional array of the same size.
+        ReDim MasPraisZubr(finalRow, finalCol)
+        'назначаем количество строк переменной
+        Strochek = finalRow
+        ' Assign and display all cell values.
+        For row = 1 To finalRow
+            For col = 1 To finalCol
+                MasPraisZubr(row, col) = (xl.ActiveSheet.Cells(row, col).Value)
+            Next col
+        Next row
+        ' Release resources.
+        xl.Workbooks.Close()
+        xl = Nothing
+    End Sub
+
+    'заполняем столбец массива "Код товара (model)" нового прайса 
+    Private Sub KodTovaraModel()
+        MasNovPrais(1, 1) = "Код товара (model)"
+        For i = 2 To Strochek
+            MasNovPrais(i, 1) = "ЗСК" & MasPraisZubr(i, 11)
+        Next
+    End Sub
+
+End Class
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

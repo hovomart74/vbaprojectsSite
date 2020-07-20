@@ -1,0 +1,550 @@
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim Puti As String
+
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "puti.txt"
+        ProverPut()
+
+    End Sub
+
+    Private Sub ProverPut() 'микропрограмма проверки наличия файла "puti.txt"
+        If My.Computer.FileSystem.FileExists("puti.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            Puti = My.Computer.FileSystem.ReadAllText("puti.txt")
+            MaskedTextBox1.Text = Puti
+        Else
+            'при её отсутствии создаём файл "puti.txt"
+            My.Computer.FileSystem.WriteAllText("puti.txt", "Тут будет путь", True)
+            MaskedTextBox1.Text = "Тут будет путь к фоткам от Зубра"
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        ViborSirix()
+    End Sub
+
+    Private Sub ViborSirix()
+
+
+
+        'Фиксируем путь к папке с сырыми фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            Puti = FolderBrowserDialog1.SelectedPath
+            MaskedTextBox1.Text = Puti
+            'очищяем содержимое файла "puti.txt"
+            My.Computer.FileSystem.DeleteFile("puti.txt")
+            'Записываем этот путь в лог файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("puti.txt", Puti, True)
+        End If
+    End Sub
+
+End Class
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14*12
+
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim Puti As String
+    Dim FotZubr() As String
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "puti.txt"
+        ProverPut()
+
+    End Sub
+
+    Private Sub ProverPut() 'микропрограмма проверки наличия файла "puti.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("puti.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            Puti = My.Computer.FileSystem.ReadAllText("puti.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = Puti
+        Else
+            'при её отсутствии создаём файл "puti.txt"
+            My.Computer.FileSystem.WriteAllText("puti.txt", "Тут будет путь", True)
+            MaskedTextBox1.Text = "Тут будет путь к фоткам от Зубра"
+            Puti = ""
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        ViborSirix()
+    End Sub
+
+    Private Sub ViborSirix()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = Puti
+
+        'Фиксируем путь к папке с сырыми фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            Puti = FolderBrowserDialog1.SelectedPath
+            MaskedTextBox1.Text = Puti
+            'очищяем содержимое файла "puti.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("puti.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("puti.txt", Puti, True)
+        End If
+    End Sub
+
+End Class
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+16*51
+
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim Puti As String
+    Dim Kol As Long
+    Dim FotZubr(Kol) As String
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "puti.txt"
+        ProverPut()
+
+    End Sub
+
+    Private Sub ProverPut() 'микропрограмма проверки наличия файла "puti.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("puti.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            Puti = My.Computer.FileSystem.ReadAllText("puti.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = Puti
+        Else
+            'при её отсутствии создаём файл "puti.txt"
+            My.Computer.FileSystem.WriteAllText("puti.txt", "Тут будет путь", True)
+            MaskedTextBox1.Text = "Тут будет путь к фоткам от Зубра"
+            Puti = ""
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        ViborSirix()
+    End Sub
+
+    Private Sub ViborSirix()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = Puti
+
+        'Фиксируем путь к папке с сырыми фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            Puti = FolderBrowserDialog1.SelectedPath
+            MaskedTextBox1.Text = Puti
+            'очищяем содержимое файла "puti.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("puti.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("puti.txt", Puti, True)
+        End If
+        'запускаем создание массива с названиями файлов в папке
+        ZubrMasiv()
+    End Sub
+
+    Private Sub ZubrMasiv()
+        'считаем количество файлов в папке
+        Kol = My.Computer.FileSystem.GetFiles(Puti).Count
+        'запускаем цикл для заполнения массива FotZubr названиями фоток
+        For i = 0 To Kol - 1
+            FotZubr(i) = My.Computer.FileSystem.GetFiles(Puti)(i)
+        Next
+
+
+    End Sub
+
+
+End Class
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+18*16
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim Puti As String
+    Dim Kol As Long
+    Dim FotZubr() As String
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "puti.txt"
+        ProverPut()
+
+    End Sub
+
+    Private Sub ProverPut() 'микропрограмма проверки наличия файла "puti.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("puti.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            Puti = My.Computer.FileSystem.ReadAllText("puti.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = Puti
+        Else
+            'при её отсутствии создаём файл "puti.txt"
+            My.Computer.FileSystem.WriteAllText("puti.txt", "Тут будет путь", True)
+            MaskedTextBox1.Text = "Тут будет путь к фоткам от Зубра"
+            Puti = ""
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        ViborSirix()
+    End Sub
+
+    Private Sub ViborSirix()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = Puti
+
+        'Фиксируем путь к папке с сырыми фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            Puti = FolderBrowserDialog1.SelectedPath
+            MaskedTextBox1.Text = Puti
+            'очищяем содержимое файла "puti.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("puti.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("puti.txt", Puti, True)
+        End If
+
+    End Sub
+
+    Private Sub ZubrMasiv()
+        'считаем количество файлов в папке
+        Kol = My.Computer.FileSystem.GetFiles(Puti).Count
+        ReDim FotZubr(Kol - 1)
+        'запускаем цикл для заполнения массива FotZubr названиями фоток
+        For i = 0 To Kol - 1
+            FotZubr(i) = My.Computer.FileSystem.GetFiles(Puti)(i)
+            'заодно записываем в текстовый документ
+            My.Computer.FileSystem.WriteAllText("ИМЕНА.txt", FotZubr(i) & vbCrLf, True)
+        Next
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        'запускаем создание массива с названиями файлов в папке
+        ZubrMasiv()
+    End Sub
+End Class
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+20*02
+
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim Puti As String
+    Dim Kol As Long
+    Dim FotZubr() As String
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "puti.txt"
+        ProverPut()
+
+    End Sub
+
+    Private Sub ProverPut() 'микропрограмма проверки наличия файла "puti.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("puti.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            Puti = My.Computer.FileSystem.ReadAllText("puti.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = Puti
+        Else
+            'при её отсутствии создаём файл "puti.txt"
+            My.Computer.FileSystem.WriteAllText("puti.txt", "Тут будет путь к фоткам от Зубра", True)
+            MaskedTextBox1.Text = "Тут будет путь к фоткам от Зубра"
+            Puti = ""
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'запускаем вытаскивание и назначение стартового пути
+        ViborSirix()
+    End Sub
+
+    Private Sub ViborSirix()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = Puti
+
+        'Фиксируем путь к папке с сырыми фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            Puti = FolderBrowserDialog1.SelectedPath
+            MaskedTextBox1.Text = Puti
+            'очищяем содержимое файла "puti.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("puti.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("puti.txt", Puti, True)
+        End If
+
+    End Sub
+
+    Private Sub ZubrMasiv()
+        'считаем количество файлов в папке
+        Kol = My.Computer.FileSystem.GetFiles(Puti).Count
+        ReDim FotZubr(Kol - 1)
+        'запускаем цикл для заполнения массива FotZubr названиями фоток
+        For i = 0 To Kol - 1
+            FotZubr(i) = My.Computer.FileSystem.GetFiles(Puti)(i)
+            'заодно записываем в текстовый документ
+            My.Computer.FileSystem.WriteAllText("ИМЕНА.txt", FotZubr(i) & vbCrLf, True)
+        Next
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        'If MaskedTextBox1.Text = "Тут будет путь к фоткам от Зубра" Then
+        '    MsgBox("Заполните пожалуйста все поля")
+        'Else
+        '    'запускаем создание массива с названиями файлов в папке
+        '    ZubrMasiv()
+        'End If
+        If My.Computer.FileSystem.DirectoryExists(MaskedTextBox1.Text) = True Then
+            ZubrMasiv()
+            'MsgBox("Заполните пожалуйста все поля")
+        Else
+            'ZubrMasiv()
+            MsgBox("Заполните пожалуйста все поля правильно")
+        End If
+
+    End Sub
+End Class
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+20*23
+
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim Puti As String
+    Dim Kol As Long
+    Dim FotZubr() As String
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "puti.txt"
+        ProverPut()
+
+    End Sub
+
+    Private Sub ProverPut() 'микропрограмма проверки наличия файла "puti.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("puti.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            Puti = My.Computer.FileSystem.ReadAllText("puti.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = Puti
+        Else
+            'при её отсутствии создаём файл "puti.txt"
+            My.Computer.FileSystem.WriteAllText("puti.txt", "Тут будет путь к фоткам от Зубра", True)
+            MaskedTextBox1.Text = "Тут будет путь к фоткам от Зубра"
+            Puti = ""
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'запускаем вытаскивание и назначение стартового пути
+        ViborSirix()
+    End Sub
+
+    Private Sub ViborSirix()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = Puti
+
+        'Фиксируем путь к папке с сырыми фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            Puti = FolderBrowserDialog1.SelectedPath
+            MaskedTextBox1.Text = Puti
+            'очищяем содержимое файла "puti.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("puti.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("puti.txt", Puti, True)
+        End If
+
+    End Sub
+
+    Private Sub ZubrMasiv()
+        'считаем количество файлов в папке
+        Kol = My.Computer.FileSystem.GetFiles(Puti).Count
+        ReDim FotZubr(Kol - 1)
+        'запускаем цикл для заполнения массива FotZubr названиями фоток
+        For i = 0 To Kol - 1
+            FotZubr(i) = My.Computer.FileSystem.GetFiles(Puti)(i)
+            'заодно записываем в текстовый документ
+            My.Computer.FileSystem.WriteAllText("ИМЕНА.txt", FotZubr(i) & vbCrLf, True)
+        Next
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        'проверяем наличие папки с выбраным именем
+        If My.Computer.FileSystem.DirectoryExists(MaskedTextBox1.Text) = True Then
+            ZubrMasiv()
+            'MsgBox("Заполните пожалуйста все поля")
+        Else
+            'ZubrMasiv()
+            MsgBox("Заполните пожалуйста все поля правильно")
+        End If
+
+    End Sub
+End Class
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+20*51
+
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim Puti As String
+    Dim Kol As Long
+    Dim FotZubr() As String
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "puti.txt"
+        ProverPut()
+
+    End Sub
+
+    Private Sub ProverPut() 'микропрограмма проверки наличия файла "puti.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("puti.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            Puti = My.Computer.FileSystem.ReadAllText("puti.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = Puti
+        Else
+            'при её отсутствии создаём файл "puti.txt"
+            My.Computer.FileSystem.WriteAllText("puti.txt", "Тут будет путь к фоткам от Зубра", True)
+            MaskedTextBox1.Text = "Тут будет путь к фоткам от Зубра"
+            Puti = ""
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'запускаем вытаскивание и назначение стартового пути
+        ViborSirix()
+    End Sub
+
+    Private Sub ViborSirix()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = Puti
+
+        'Фиксируем путь к папке с сырыми фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            Puti = FolderBrowserDialog1.SelectedPath
+            MaskedTextBox1.Text = Puti
+            'очищяем содержимое файла "puti.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("puti.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("puti.txt", Puti, True)
+        End If
+
+    End Sub
+
+    Private Sub ZubrMasiv()
+        'считаем количество файлов в папке
+        Kol = My.Computer.FileSystem.GetFiles(Puti).Count
+        ReDim FotZubr(Kol - 1)
+        FotZubr = IO.Directory.GetFiles(Puti)
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        'проверяем наличие папки с выбраным именем
+        If My.Computer.FileSystem.DirectoryExists(MaskedTextBox1.Text) = True Then
+            ZubrMasiv()
+            'MsgBox("Заполните пожалуйста все поля")
+        Else
+            'ZubrMasiv()
+            MsgBox("Заполните пожалуйста все поля правильно")
+        End If
+
+    End Sub
+End Class
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+20*53
+
+Public Class Form1
+    'создаём переменную, читающую путь стартовой папки 
+    Dim Puti As String
+    Dim Kol As Long
+    Dim FotZubr() As String
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'при загрузке формы сразу проверяем наличие файла "puti.txt"
+        ProverPut()
+
+    End Sub
+
+    Private Sub ProverPut() 'микропрограмма проверки наличия файла "puti.txt"
+        'строка проверяет наличие
+        If My.Computer.FileSystem.FileExists("puti.txt") Then
+            'при её наличии считываем из неё последний путь к папке с фотками
+            Puti = My.Computer.FileSystem.ReadAllText("puti.txt")
+            'путь записываем в Текстбокс
+            MaskedTextBox1.Text = Puti
+        Else
+            'при её отсутствии создаём файл "puti.txt"
+            My.Computer.FileSystem.WriteAllText("puti.txt", "Тут будет путь к фоткам от Зубра", True)
+            MaskedTextBox1.Text = "Тут будет путь к фоткам от Зубра"
+            Puti = ""
+        End If
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'запускаем вытаскивание и назначение стартового пути
+        ViborSirix()
+    End Sub
+
+    Private Sub ViborSirix()
+        'вытаскиваем и назначаем стартовый путь
+        FolderBrowserDialog1.SelectedPath = Puti
+
+        'Фиксируем путь к папке с сырыми фотками от Зубр
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            'присваиваем переменной выбранный путь
+            Puti = FolderBrowserDialog1.SelectedPath
+            MaskedTextBox1.Text = Puti
+            'очищяем содержимое файла "puti.txt"
+            'удаляем файл
+            My.Computer.FileSystem.DeleteFile("puti.txt")
+            'Записываем этот путь в новый файл, чтобы каждый раз не повторять фиксацию папки
+            My.Computer.FileSystem.WriteAllText("puti.txt", Puti, True)
+        End If
+
+    End Sub
+
+    Private Sub ZubrMasiv()
+        'считаем количество файлов в папке
+        Kol = IO.Directory.GetFiles(Puti).Count
+        ReDim FotZubr(Kol - 1)
+        FotZubr = IO.Directory.GetFiles(Puti)
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        'проверяем наличие папки с выбраным именем
+        If My.Computer.FileSystem.DirectoryExists(MaskedTextBox1.Text) = True Then
+            ZubrMasiv()
+            'MsgBox("Заполните пожалуйста все поля")
+        Else
+            'ZubrMasiv()
+            MsgBox("Заполните пожалуйста все поля правильно")
+        End If
+
+    End Sub
+End Class
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
